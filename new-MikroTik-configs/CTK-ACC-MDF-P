@@ -67,6 +67,8 @@ add interface=BR mtu=1496 name=VLAN2137-MGMT vlan-id=2137
 /interface bonding
 add mode=802.3ad name=bonding-AGG-01 slaves=sfp-sfpplus1,sfp-sfpplus2
 add mode=802.3ad name=bonding-AGG-02 slaves=sfp-sfpplus3,sfp-sfpplus4
+/interface wireless security-profiles
+set [ find default=yes ] supplicant-identity=MikroTik
 /interface bridge port
 add bridge=BR frame-types=admit-only-vlan-tagged ingress-filtering=yes interface=bonding-AGG-01 pvid=666
 add bridge=BR frame-types=admit-only-vlan-tagged ingress-filtering=yes interface=bonding-AGG-02 pvid=666
@@ -85,4 +87,4 @@ add bridge=BR tagged=BR,bonding-AGG-01,bonding-AGG-02,ether1,ether2,ether3,ether
 /ip address
 add address=10.21.37.5/24 interface=VLAN2137-MGMT network=10.21.37.0
 /system identity
-set name=CTK-ACC-01-P
+set name=CTK-ACC-MDF-P
