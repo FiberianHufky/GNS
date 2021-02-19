@@ -1,0 +1,64 @@
+/interface bridge
+add name=BR pvid=666 vlan-filtering=yes
+/interface ethernet
+set [ find default-name=ether1 ] disable-running-check=no
+set [ find default-name=ether26 ] disable-running-check=no name=qsfpplus1-1
+set [ find default-name=ether27 ] disable-running-check=no name=qsfpplus1-2
+set [ find default-name=ether28 ] disable-running-check=no name=qsfpplus1-3
+set [ find default-name=ether29 ] disable-running-check=no name=qsfpplus1-4
+set [ find default-name=ether30 ] disable-running-check=no name=qsfpplus2-1
+set [ find default-name=ether31 ] disable-running-check=no name=qsfpplus2-2
+set [ find default-name=ether32 ] disable-running-check=no name=qsfpplus2-3
+set [ find default-name=ether33 ] disable-running-check=no name=qsfpplus2-4
+set [ find default-name=ether2 ] disable-running-check=no name=sfp-sfpplus1
+set [ find default-name=ether3 ] disable-running-check=no name=sfp-sfpplus2
+set [ find default-name=ether4 ] disable-running-check=no name=sfp-sfpplus3
+set [ find default-name=ether5 ] disable-running-check=no name=sfp-sfpplus4
+set [ find default-name=ether6 ] disable-running-check=no name=sfp-sfpplus5
+set [ find default-name=ether7 ] disable-running-check=no name=sfp-sfpplus6
+set [ find default-name=ether8 ] disable-running-check=no name=sfp-sfpplus7
+set [ find default-name=ether9 ] disable-running-check=no name=sfp-sfpplus8
+set [ find default-name=ether10 ] disable-running-check=no name=sfp-sfpplus9
+set [ find default-name=ether11 ] disable-running-check=no name=sfp-sfpplus10
+set [ find default-name=ether12 ] disable-running-check=no name=sfp-sfpplus11
+set [ find default-name=ether13 ] disable-running-check=no name=sfp-sfpplus12
+set [ find default-name=ether14 ] disable-running-check=no disabled=yes name=sfp-sfpplus13
+set [ find default-name=ether15 ] disable-running-check=no disabled=yes name=sfp-sfpplus14
+set [ find default-name=ether16 ] disable-running-check=no disabled=yes name=sfp-sfpplus15
+set [ find default-name=ether17 ] disable-running-check=no disabled=yes name=sfp-sfpplus16
+set [ find default-name=ether18 ] disable-running-check=no disabled=yes name=sfp-sfpplus17
+set [ find default-name=ether19 ] disable-running-check=no disabled=yes name=sfp-sfpplus18
+set [ find default-name=ether20 ] disable-running-check=no disabled=yes name=sfp-sfpplus19
+set [ find default-name=ether21 ] disable-running-check=no disabled=yes name=sfp-sfpplus20
+set [ find default-name=ether22 ] disable-running-check=no disabled=yes name=sfp-sfpplus21
+set [ find default-name=ether23 ] disable-running-check=no disabled=yes name=sfp-sfpplus22
+set [ find default-name=ether24 ] disable-running-check=no disabled=yes name=sfp-sfpplus23
+set [ find default-name=ether25 ] disable-running-check=no disabled=yes name=sfp-sfpplus24
+/interface vlan
+add interface=BR mtu=1496 name=VLAN2137-MGMT vlan-id=2137
+/interface bonding
+add mode=802.3ad name=bonding-ACC-IDF1-P slaves=sfp-sfpplus5,sfp-sfpplus6
+add mode=802.3ad name=bonding-ACC-IDF2-P slaves=sfp-sfpplus7,sfp-sfpplus8
+add mode=802.3ad name=bonding-ACC-IDF3-P slaves=sfp-sfpplus9,sfp-sfpplus10
+add mode=802.3ad name=bonding-ACC-IDF4-P slaves=sfp-sfpplus11,sfp-sfpplus12
+add mode=802.3ad name=bonding-ACC-MDF-P slaves=sfp-sfpplus1,sfp-sfpplus2
+add mode=802.3ad name=bonding-ACC-MDF-S1 slaves=sfp-sfpplus3,sfp-sfpplus4
+add mode=802.3ad name=bonding-AGG-MDF-01 slaves=qsfpplus1-1,qsfpplus1-2,qsfpplus1-3,qsfpplus1-4
+add mode=802.3ad name=bonding-RTR-MDF-01 slaves=qsfpplus2-1,qsfpplus2-2
+add mode=802.3ad name=bonding-RTR-MDF-02 slaves=qsfpplus2-3,qsfpplus2-4
+/interface bridge port
+add bridge=BR frame-types=admit-only-vlan-tagged ingress-filtering=yes interface=bonding-RTR-MDF-01 pvid=666
+add bridge=BR frame-types=admit-only-vlan-tagged ingress-filtering=yes interface=bonding-RTR-MDF-02 pvid=666
+add bridge=BR frame-types=admit-only-vlan-tagged ingress-filtering=yes interface=bonding-AGG-MDF-01 pvid=666
+add bridge=BR frame-types=admit-only-vlan-tagged ingress-filtering=yes interface=bonding-ACC-MDF-P pvid=666
+add bridge=BR frame-types=admit-only-vlan-tagged ingress-filtering=yes interface=bonding-ACC-MDF-S1 pvid=666
+add bridge=BR frame-types=admit-only-vlan-tagged ingress-filtering=yes interface=bonding-ACC-IDF1-P pvid=666
+add bridge=BR frame-types=admit-only-vlan-tagged ingress-filtering=yes interface=bonding-ACC-IDF2-P pvid=666
+add bridge=BR frame-types=admit-only-vlan-tagged ingress-filtering=yes interface=bonding-ACC-IDF3-P pvid=666
+add bridge=BR frame-types=admit-only-vlan-tagged ingress-filtering=yes interface=bonding-ACC-IDF4-P pvid=666
+/interface bridge vlan
+add bridge=BR tagged=BR,bonding-RTR-MDF-01,bonding-RTR-MDF-02,bonding-AGG-MDF-01,bonding-ACC-IDF1-P,bonding-ACC-IDF2-P,bonding-ACC-IDF3-P,bonding-ACC-IDF4-P vlan-ids=2137
+/ip address
+add address=10.21.37.4/24 interface=VLAN2137-MGMT network=10.21.37.0
+/system identity
+set name=CTK-AGG-MDF-02
