@@ -31,22 +31,27 @@ add interface=VLAN80-Guest name=VRRP80-Guest vrid=80
 add interface=VLAN90-BYOD name=VRRP90-BYOD vrid=90
 add interface=VLAN100-Company_1 name=VRRP100-Company_1 vrid=100
 add interface=VLAN2137-MGMT name=VRRP2137-MGMT vrid=213
+/interface wireless security-profiles
+set [ find default=yes ] supplicant-identity=MikroTik
 /interface bridge port
 add bridge=BR frame-types=admit-only-vlan-tagged ingress-filtering=yes interface=bonding-MDF-AGG-1 pvid=666
 add bridge=BR frame-types=admit-only-vlan-tagged ingress-filtering=yes interface=bonding-MDF-AGG-2 pvid=666
 /interface bridge vlan
-add bridge=BR tagged=BR,bonding-MDF-AGG-1,bonding-MDF-AGG-2 vlan-ids=70,80,90,100
 add bridge=BR tagged=BR,bonding-MDF-AGG-1,bonding-MDF-AGG-2 vlan-ids=2137
+add bridge=BR tagged=BR,bonding-MDF-AGG-1,bonding-MDF-AGG-2 vlan-ids=70
+add bridge=BR tagged=BR,bonding-MDF-AGG-1,bonding-MDF-AGG-2 vlan-ids=80
+add bridge=BR tagged=BR,bonding-MDF-AGG-1,bonding-MDF-AGG-2 vlan-ids=90
+add bridge=BR tagged=BR,bonding-MDF-AGG-1,bonding-MDF-AGG-2 vlan-ids=100
 /ip address
 add address=10.21.37.3/24 interface=VLAN2137-MGMT network=10.21.37.0
-add address=10.21.37.1 interface=VRRP2137-MGMT network=10.21.37.0
-add address=10.70.0.1 interface=VRRP70-Printers network=10.70.0.0
+add address=10.21.37.1 interface=VRRP2137-MGMT network=10.21.37.1
+add address=10.70.0.1 interface=VRRP70-Printers network=10.70.0.1
 add address=10.70.0.3/24 interface=VLAN70-Printers network=10.70.0.0
-add address=10.80.0.1 interface=VRRP80-Guest network=10.80.0.0
+add address=10.80.0.1 interface=VRRP80-Guest network=10.80.0.1
 add address=10.80.0.3/22 interface=VLAN80-Guest network=10.80.0.0
-add address=10.90.0.1 interface=VRRP90-BYOD network=10.90.0.0
+add address=10.90.0.1 interface=VRRP90-BYOD network=10.90.0.1
 add address=10.90.0.3/22 interface=VLAN90-BYOD network=10.90.0.0
-add address=10.100.0.1 interface=VRRP100-Company_1 network=10.100.0.0
+add address=10.100.0.1 interface=VRRP100-Company_1 network=10.100.0.1
 add address=10.100.0.3/23 interface=VLAN100-Company_1 network=10.100.0.0
 /ip dhcp-client
 add disabled=no interface=sfp-sfp281

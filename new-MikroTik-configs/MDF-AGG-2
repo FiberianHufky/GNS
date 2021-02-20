@@ -46,6 +46,8 @@ add mode=802.3ad name=bonding-MDF-ACC-2 slaves=sfp-sfpplus3,sfp-sfpplus4
 add mode=802.3ad name=bonding-MDF-AGG-1 slaves=qsfpplus1-1,qsfpplus1-2,qsfpplus1-3,qsfpplus1-4
 add mode=802.3ad name=bonding-MDF-RTR-1 slaves=qsfpplus2-1,qsfpplus2-2
 add mode=802.3ad name=bonding-MDF-RTR-2 slaves=qsfpplus2-3,qsfpplus2-4
+/interface wireless security-profiles
+set [ find default=yes ] supplicant-identity=MikroTik
 /interface bridge port
 add bridge=BR frame-types=admit-only-vlan-tagged ingress-filtering=yes interface=bonding-MDF-RTR-1 pvid=666
 add bridge=BR frame-types=admit-only-vlan-tagged ingress-filtering=yes interface=bonding-MDF-RTR-2 pvid=666
@@ -53,11 +55,12 @@ add bridge=BR frame-types=admit-only-vlan-tagged ingress-filtering=yes interface
 add bridge=BR frame-types=admit-only-vlan-tagged ingress-filtering=yes interface=bonding-MDF-ACC-1P pvid=666
 add bridge=BR frame-types=admit-only-vlan-tagged ingress-filtering=yes interface=bonding-MDF-ACC-2 pvid=666
 add bridge=BR frame-types=admit-only-vlan-tagged ingress-filtering=yes interface=bonding-IDF1-ACC-1P pvid=666
-add bridge=BR frame-types=admit-only-vlan-tagged hw=no ingress-filtering=yes interface=bonding-IDF2-ACC-1P pvid=666
-add bridge=BR frame-types=admit-only-vlan-tagged hw=no ingress-filtering=yes interface=bonding-IDF3-ACC-1P pvid=666
-add bridge=BR frame-types=admit-only-vlan-tagged hw=no ingress-filtering=yes interface=bonding-IDF4-ACC-1P pvid=666
+add bridge=BR frame-types=admit-only-vlan-tagged ingress-filtering=yes interface=bonding-IDF2-ACC-1P pvid=666
+add bridge=BR frame-types=admit-only-vlan-tagged ingress-filtering=yes interface=bonding-IDF3-ACC-1P pvid=666
+add bridge=BR frame-types=admit-only-vlan-tagged ingress-filtering=yes interface=bonding-IDF4-ACC-1P pvid=666
 /interface bridge vlan
 add bridge=BR tagged=BR,bonding-MDF-RTR-1,bonding-MDF-RTR-2,bonding-MDF-AGG-1,bonding-MDF-ACC-1P,bonding-MDF-ACC-2,bonding-IDF1-ACC-1P,bonding-IDF2-ACC-1P,bonding-IDF3-ACC-1P,bonding-IDF4-ACC-1P vlan-ids=2137
+add bridge=BR tagged=BR,bonding-MDF-RTR-1,bonding-MDF-RTR-2,bonding-MDF-AGG-1,bonding-MDF-ACC-1P,bonding-MDF-ACC-2,bonding-IDF1-ACC-1P,bonding-IDF2-ACC-1P,bonding-IDF3-ACC-1P,bonding-IDF4-ACC-1P vlan-ids=70,80,90,100
 /ip address
 add address=10.21.37.5/24 interface=VLAN2137-MGMT network=10.21.37.0
 /system identity
