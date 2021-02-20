@@ -1,0 +1,54 @@
+/interface bridge
+add name=BR pvid=666 vlan-filtering=yes
+/interface ethernet
+set [ find default-name=ether1 ] disable-running-check=no
+set [ find default-name=ether14 ] disable-running-check=no name=sfp-sfp281
+set [ find default-name=ether15 ] disable-running-check=no name=sfp-sfp282
+set [ find default-name=ether2 ] disable-running-check=no name=sfp-sfpplus1
+set [ find default-name=ether3 ] disable-running-check=no name=sfp-sfpplus2
+set [ find default-name=ether4 ] disable-running-check=no name=sfp-sfpplus3
+set [ find default-name=ether5 ] disable-running-check=no name=sfp-sfpplus4
+set [ find default-name=ether6 ] disable-running-check=no name=sfp-sfpplus5
+set [ find default-name=ether7 ] disable-running-check=no name=sfp-sfpplus6
+set [ find default-name=ether8 ] disable-running-check=no name=sfp-sfpplus7
+set [ find default-name=ether9 ] disable-running-check=no name=sfp-sfpplus8
+set [ find default-name=ether10 ] disable-running-check=no name=sfp-sfpplus9
+set [ find default-name=ether11 ] disable-running-check=no name=sfp-sfpplus10
+set [ find default-name=ether12 ] disable-running-check=no name=sfp-sfpplus11
+set [ find default-name=ether13 ] disable-running-check=no name=sfp-sfpplus12
+/interface vlan
+add interface=BR mtu=1496 name=VLAN70-Printers vlan-id=70
+add interface=BR mtu=1496 name=VLAN80-Guest vlan-id=80
+add interface=BR mtu=1496 name=VLAN90-BYOD vlan-id=90
+add interface=BR mtu=1496 name=VLAN100-Company_1 vlan-id=100
+add interface=BR mtu=1496 name=VLAN2137-MGMT vlan-id=2137
+/interface bonding
+add mode=802.3ad name=bonding-MDF-AGG-1 slaves=sfp-sfpplus1,sfp-sfpplus2
+add mode=802.3ad name=bonding-MDF-AGG-2 slaves=sfp-sfpplus3,sfp-sfpplus4
+/interface vrrp
+add interface=VLAN70-Printers name=VRRP70-Printers vrid=70
+add interface=VLAN80-Guest name=VRRP80-Guest vrid=80
+add interface=VLAN90-BYOD name=VRRP90-BYOD vrid=90
+add interface=VLAN100-Company_1 name=VRRP100-Company_1 vrid=100
+add interface=VLAN2137-MGMT name=VRRP2137-MGMT vrid=213
+/interface bridge port
+add bridge=BR frame-types=admit-only-vlan-tagged ingress-filtering=yes interface=bonding-MDF-AGG-1 pvid=666
+add bridge=BR frame-types=admit-only-vlan-tagged ingress-filtering=yes interface=bonding-MDF-AGG-2 pvid=666
+/interface bridge vlan
+add bridge=BR tagged=BR,bonding-MDF-AGG-1,bonding-MDF-AGG-2 vlan-ids=70,80,90,100
+add bridge=BR tagged=BR,bonding-MDF-AGG-1,bonding-MDF-AGG-2 vlan-ids=2137
+/ip address
+add address=10.21.37.3/24 interface=VLAN2137-MGMT network=10.21.37.0
+add address=10.21.37.1 interface=VRRP2137-MGMT network=10.21.37.0
+add address=10.70.0.1 interface=VRRP70-Printers network=10.70.0.0
+add address=10.70.0.3/24 interface=VLAN70-Printers network=10.70.0.0
+add address=10.80.0.1 interface=VRRP80-Guest network=10.80.0.0
+add address=10.80.0.3/22 interface=VLAN80-Guest network=10.80.0.0
+add address=10.90.0.1 interface=VRRP90-BYOD network=10.90.0.0
+add address=10.90.0.3/22 interface=VLAN90-BYOD network=10.90.0.0
+add address=10.100.0.1 interface=VRRP100-Company_1 network=10.100.0.0
+add address=10.100.0.3/23 interface=VLAN100-Company_1 network=10.100.0.0
+/ip dhcp-client
+add disabled=no interface=sfp-sfp281
+/system identity
+set name=MDF-RTR-2
