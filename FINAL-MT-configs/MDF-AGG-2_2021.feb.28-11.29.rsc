@@ -16,13 +16,13 @@ set [ find default-name=ether28 ] disable-running-check=no name=\
 set [ find default-name=ether29 ] disable-running-check=no name=\
     qsfpplus1-4<-MDF-AGG-1->qsfpplus1-4
 set [ find default-name=ether30 ] disable-running-check=no name=\
-    qsfpplus2-1<MDF-RTR-1->sfpplus3
+    qsfpplus2-1<-MDF-RTR-1->sfpplus3
 set [ find default-name=ether31 ] disable-running-check=no name=\
-    qsfpplus2-2<MDF-RTR-1->sfpplus4
+    qsfpplus2-2<-MDF-RTR-1->sfpplus4
 set [ find default-name=ether32 ] disable-running-check=no name=\
-    qsfpplus2-3<MDF-RTR-2->sfpplus3
+    qsfpplus2-3<-MDF-RTR-2->sfpplus3
 set [ find default-name=ether33 ] disable-running-check=no name=\
-    qsfpplus2-4<MDF-RTR-2->sfpplus4
+    qsfpplus2-4<-MDF-RTR-2->sfpplus4
 set [ find default-name=ether2 ] disable-running-check=no name=\
     sfpplus1<-MDF-ACC-1P->sfpplus3
 set [ find default-name=ether3 ] disable-running-check=no name=\
