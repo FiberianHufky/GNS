@@ -78,14 +78,14 @@ set [ find default-name=ether51 ] disable-running-check=no name=\
 set [ find default-name=ether52 ] disable-running-check=no name=\
     sfpplus3<-MDF-AGG-2->sfpplus5
 set [ find default-name=ether53 ] disable-running-check=no name=\
-    sfpplus4<-MDF-AGG-2>sfpplus6
+    sfpplus4<-MDF-AGG-2->sfpplus6
 /interface vlan
 add interface=BR mtu=1496 name=VLAN2137-MGMT vlan-id=2137
 /interface bonding
 add mode=802.3ad name=bonding-MDF-AGG-1 slaves=\
     sfpplus1<-MDF-AGG-1->sfpplus5,sfpplus2<-MDF-AGG-1->sfpplus6
 add mode=802.3ad name=bonding-MDF-AGG-2 slaves=\
-    sfpplus3<-MDF-AGG-2->sfpplus5,sfpplus4<-MDF-AGG-2>sfpplus6
+    sfpplus3<-MDF-AGG-2->sfpplus5,sfpplus4<-MDF-AGG-2->sfpplus6
 /interface wireless security-profiles
 set [ find default=yes ] supplicant-identity=MikroTik
 /system logging action
