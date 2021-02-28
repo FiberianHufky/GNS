@@ -90,9 +90,9 @@ add mode=802.3ad name=bonding-MDF-AGG-2 slaves="qsfpplus1-1<-MDF-AGG-2->qsfppl\
     us1-1,qsfpplus1-2<-MDF-AGG-2->qsfpplus1-2,qsfpplus1-3<-MDF-AGG-2->qsfpplus\
     1-3,qsfpplus1-4<-MDF-AGG-2->qsfpplus1-4"
 add mode=802.3ad name=bonding-MDF-RTR-1 slaves=\
-    qsfpplus2-1<MDF-RTR-1->sfpplus1,qsfpplus2-2<MDF-RTR-1->sfpplus2
+    qsfpplus2-1<-MDF-RTR-1->sfpplus1,qsfpplus2-2<-MDF-RTR-1->sfpplus2
 add mode=802.3ad name=bonding-MDF-RTR-2 slaves=\
-    qsfpplus2-3<MDF-RTR-2->sfpplus1,qsfpplus2-4<MDF-RTR-2->sfpplus2
+    qsfpplus2-3<-MDF-RTR-2->sfpplus1,qsfpplus2-4<-MDF-RTR-2->sfpplus2
 /interface wireless security-profiles
 set [ find default=yes ] supplicant-identity=MikroTik
 /system logging action
