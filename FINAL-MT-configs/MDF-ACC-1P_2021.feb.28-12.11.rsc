@@ -74,11 +74,11 @@ set [ find default-name=ether61 ] disable-running-check=no disabled=yes name=\
 set [ find default-name=ether50 ] disable-running-check=no name=\
     sfpplus1<-MDF-AGG-1->sfpplus1
 set [ find default-name=ether52 ] disable-running-check=no name=\
-    sfpplus1<-MDF-AGG-2->sfpplus1
+    sfpplus3<-MDF-AGG-2->sfpplus1
 set [ find default-name=ether51 ] disable-running-check=no name=\
     sfpplus2<-MDF-AGG-1->sfpplus2
 set [ find default-name=ether53 ] disable-running-check=no name=\
-    sfpplus2<-MDF-AGG-2->sfpplus2
+    sfpplus4<-MDF-AGG-2->sfpplus2
 /interface vlan
 add interface=BR mtu=1496 name=VLAN2137-MGMT vlan-id=2137
 /interface bonding
